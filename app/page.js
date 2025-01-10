@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 
@@ -43,7 +43,7 @@ const LoginPage = () => {
     // Simple credential check - in production, use Supabase Auth
     if (username === 'admin' && password === 'admin123') {
       localStorage.setItem('isAuthenticated', 'true');
-      router.push('/dashboard');
+      router.push('./pages/customer-input');
     } else {
       toast.error('Invalid credentials');
     }

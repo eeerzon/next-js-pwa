@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/compat/router';
 import DatePicker from 'react-datepicker';
 import { getNames } from 'country-list';
 import toast from 'react-hot-toast';
