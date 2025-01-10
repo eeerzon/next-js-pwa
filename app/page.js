@@ -5,16 +5,6 @@ import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 
-
-// const Component = () => {
-//   if (typeof window === 'undefined') {
-//     return null; // Hindari SSR
-//   }
-
-//   const router = useRouter();
-//   return <div>Current Route: {router.pathname}</div>;
-// };
-
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -43,7 +33,7 @@ const LoginPage = () => {
     // Simple credential check - in production, use Supabase Auth
     if (username === 'admin' && password === 'admin123') {
       localStorage.setItem('isAuthenticated', 'true');
-      router.push('/customer-input');
+      router.push('/dashboard');
     } else {
       toast.error('Invalid credentials');
     }
