@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,25 +22,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const router = useRouter()
-  const [isDarkMode, setIsDarkMode] = useState(false)
-
-  useEffect(() => {
-    // Check system preference
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      setIsDarkMode(true)
-    }
-  }, [])
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode)
-  }
-
-  // Don't show layout on login page
-  if (router.pathname === '/login') {
-    return <main className={isDarkMode ? 'dark' : ''}>{children}</main>
-  }
-
   return (
     <html lang="en">
       <body
