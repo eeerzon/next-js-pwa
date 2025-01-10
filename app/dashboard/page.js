@@ -98,6 +98,8 @@ export default function Dashboard() {
 
   //end of code
 
+  
+
     return (
       <div className="min-h-screen flex flex-col md:flex-row">
         <aside className="w-64 bg-gray-800 text-white hidden md:block">
