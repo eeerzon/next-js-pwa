@@ -101,7 +101,7 @@ export async function getStaticProps() {
   try {
     const data = await fetchSomeData();
     return { props: { data } };
-  } catch (error) {
+  } catch (e) {
     return { notFound: true }; // Jika error, beri fallback
   }
 }
