@@ -104,6 +104,7 @@
 'use client'
 
 import { useState } from 'react';
+import Image from "next/image";
 
 
 export default function LoginPage() {
@@ -119,6 +120,14 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+      <Image
+          className="dark:invert"
+          src="/next.svg"
+          alt="Next.js logo"
+          width={180}
+          height={38}
+          priority
+        />
       <div className="bg-white dark:bg-gray-800 p-6 rounded shadow-md w-80">
         <h2 className="text-lg font-bold text-center mb-4">Login</h2>
         <input
@@ -126,14 +135,14 @@ export default function LoginPage() {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-2 mb-4 border rounded text-black"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 mb-4 border rounded"
+          className="w-full p-2 mb-4 border rounded text-black"
         />
         <button
           onClick={handleLogin}
