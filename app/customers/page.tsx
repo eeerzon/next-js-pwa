@@ -1,4 +1,4 @@
-import { CustomerListClient } from './customer-list-client'
+import { CustomerListClient } from '../components/customer-list-client'
 
 export default function CustomersPage() {
   return <CustomerListClient />
