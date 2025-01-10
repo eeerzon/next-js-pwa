@@ -29,7 +29,7 @@ export default function RootLayout({
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/login"); // Mengarahkan ke halaman login
+    router.replace("./pages/login"); // Mengarahkan ke halaman login
   }, [router]);
       
   return (
