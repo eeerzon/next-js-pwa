@@ -1,60 +1,49 @@
-import React, { useState, useEffect } from 'react';
+'use client'
 
-interface Customer {
-  id: number;
-  full_name: string;
-  email: string;
-  nationality: string;
-}
+import { useEffect, useState } from 'react'
+import type { Customer, CustomerListProps } from './types/customer'
 
-const CustomerList: React.FC = () => {
-  const [customers, setCustomers] = useState<Customer[]>([]);
-  const [page, setPage] = useState(1);
-  const [itemsPerPage] = useState(10);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({ nationality: '' });
-  const [error, setError] = useState<string | null>(null);
+export function CustomerListContent({
+  page,
+  setPage,
+  itemsPerPage,
+  searchTerm,
+  handleSearch,
+  filters,
+  handleFilter,
+  handleSort,
+  error,
+  setError
+}: CustomerListProps) {
+  const [customers, setCustomers] = useState<Customer[]>([])
 
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        setError(null);
-        const response = await fetch(`/api/customers?page=${page}&limit=${itemsPerPage}&search=${searchTerm}&nationality=${filters.nationality}`);
-      
+        setError(null)
+        const response = await fetch(
+          `/api/customers?page=${page}&limit=${itemsPerPage}&search=${searchTerm}&nationality=${filters.nationality}`
+        )
+
         if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          throw new Error(`HTTP error! status: ${response.status}`)
         }
-      
-        const data = await response.json();
-      
+
+        const data = await response.json()
+
         if (!data || !Array.isArray(data.customers)) {
-          throw new Error('Invalid data format received from the server');
+          throw new Error('Invalid data format received from the server')
         }
-      
-        setCustomers(data.customers);
+
+        setCustomers(data.customers)
       } catch (error) {
-        console.error('Error fetching customers:', error);
-        setError('Failed to fetch customers. Please try again later.');
+        console.error('Error fetching customers:', error)
+        setError('Failed to fetch customers. Please try again later.')
       }
-    };
+    }
 
-    fetchCustomers();
-  }, [page, searchTerm, filters, itemsPerPage]);
-
-  const handleSearch = (value: string) => {
-    setSearchTerm(value);
-    setPage(1);
-  };
-
-  const handleFilter = (newFilters: { nationality: string }) => {
-    setFilters(newFilters);
-    setPage(1);
-  };
-
-  const handleSort = (field: keyof Customer) => {
-    console.log(`Sorting by ${field}`);
-    // Implement sorting logic here
-  };
+    fetchCustomers()
+  }, [page, searchTerm, filters, itemsPerPage, setError])
 
   return (
     <div className="p-6">
@@ -64,6 +53,7 @@ const CustomerList: React.FC = () => {
           <span className="block sm:inline"> {error}</span>
         </div>
       )}
+      
       {customers.length > 0 ? (
         <table className="w-full border-collapse border border-gray-300">
           <thead>
@@ -125,7 +115,7 @@ const CustomerList: React.FC = () => {
 
       <div className="mt-6 flex justify-center gap-2">
         <button
-          onClick={() => setPage(p => Math.max(1, p - 1))}
+          onClick={() => setPage(Math.max(1, page - 1))}
           disabled={page === 1}
           className="p-2 rounded-md border border-gray-300 disabled:opacity-50"
         >
@@ -133,7 +123,7 @@ const CustomerList: React.FC = () => {
         </button>
         <span className="p-2">Page {page}</span>
         <button
-          onClick={() => setPage(p => p + 1)}
+          onClick={() => setPage(page + 1)}
           disabled={customers.length < itemsPerPage}
           className="p-2 rounded-md border border-gray-300 disabled:opacity-50"
         >
@@ -141,8 +131,6 @@ const CustomerList: React.FC = () => {
         </button>
       </div>
     </div>
-  );
-};
-
-export default CustomerList;
+  )
+}
 
