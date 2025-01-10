@@ -63,7 +63,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/login"); // Mengarahkan ke halaman login
+    router.replace("/pages/login"); // Mengarahkan ke halaman login
   }, [router]);
 
   return null; // Atau tampilkan loader
