@@ -1,7 +1,14 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const CustomerList = () => {
-  const [customers, setCustomers] = useState([]);
+interface Customer {
+  id: number;
+  full_name: string;
+  email: string;
+  nationality: string;
+}
+
+const CustomerList: React.FC = () => {
+  const [customers, setCustomers] = useState<Customer[]>([]);
   const [page, setPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,7 +18,7 @@ const CustomerList = () => {
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        setError(null); // Clear any previous errors
+        setError(null);
         const response = await fetch(`/api/customers?page=${page}&limit=${itemsPerPage}&search=${searchTerm}&nationality=${filters.nationality}`);
       
         if (!response.ok) {
@@ -34,21 +41,20 @@ const CustomerList = () => {
     fetchCustomers();
   }, [page, searchTerm, filters, itemsPerPage]);
 
-  const handleSearch = (value) => {
+  const handleSearch = (value: string) => {
     setSearchTerm(value);
-    setPage(1); // Reset to page 1 when searching
+    setPage(1);
   };
 
-  const handleFilter = (newFilters) => {
+  const handleFilter = (newFilters: { nationality: string }) => {
     setFilters(newFilters);
-    setPage(1); // Reset to page 1 when filtering
+    setPage(1);
   };
 
-  const handleSort = (field) => {
-    // Implement sorting logic here
+  const handleSort = (field: keyof Customer) => {
     console.log(`Sorting by ${field}`);
+    // Implement sorting logic here
   };
-
 
   return (
     <div className="p-6">
@@ -81,8 +87,6 @@ const CustomerList = () => {
         <p className="text-center text-gray-500 my-4">No customers found.</p>
       )}
 
-
-      {/* Search and Filters */}
       <div className="mb-6 flex flex-wrap gap-4">
         <div className="flex-1 min-w-[200px]">
           <div className="relative">
@@ -119,7 +123,6 @@ const CustomerList = () => {
         </div>
       </div>
 
-      {/* Pagination */}
       <div className="mt-6 flex justify-center gap-2">
         <button
           onClick={() => setPage(p => Math.max(1, p - 1))}
