@@ -5,18 +5,32 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
 import { format } from 'date-fns';
 
-type Customer = {
-  id: number;
-  fullName: string;
-  email: string;
-  phone: string;
-  address: string;
-  dob: string;
-  nationality: string;
-  country?: string;
-  photoUrl?: string;
-  createdAt: string;
-};
+// type Customer = {
+//   id: number;
+//   fullName: string;
+//   email: string;
+//   phone: string;
+//   address: string;
+//   dob: string;
+//   nationality: string;
+//   country?: string;
+//   photoUrl?: string;
+//   createdAt: string;
+// };
+
+/**
+ * @typedef {Object} Customer
+ * @property {number} id - Unique identifier for the customer
+ * @property {string} fullName - Full name of the customer
+ * @property {string} email - Email address of the customer
+ * @property {string} phone - Phone number of the customer
+ * @property {string} address - Address of the customer
+ * @property {string} dob - Date of birth of the customer
+ * @property {string} nationality - Nationality of the customer
+ * @property {string} [country] - Country of the customer (optional)
+ * @property {string} [photoUrl] - Photo URL of the customer (optional)
+ * @property {string} createdAt - Creation date of the customer record
+ */
 
 
 export default function Dashboard() {
@@ -99,7 +113,7 @@ export default function Dashboard() {
 
 
 
-  
+
     return (
       <div className="min-h-screen flex flex-col md:flex-row">
         <aside className="w-64 bg-gray-800 text-white hidden md:block">
