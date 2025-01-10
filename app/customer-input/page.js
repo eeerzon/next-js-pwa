@@ -65,12 +65,40 @@ const CustomerForm = () => {
       if (formData.photo) {
         const fileExt = formData.photo.name.split('.').pop();
         const fileName = `${Math.random()}.${fileExt}`;
-        const { error: uploadError, data } = await supabase.storage
-          .from('customer-photos')
-          .upload(fileName, formData.photo);
+        // const { error: uploadError, data } = await supabase.storage
+        //   .from('customer-photos')
+        //   .upload(fileName, formData.photo);
 
-        if (uploadError) throw uploadError;
-        photoUrl = data.publicUrl;
+        // if (uploadError) throw uploadError;
+        // photoUrl = data.publicUrl;
+
+        const fileInput = document.querySelector('input[type="file"]');
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append('file', file); // 'file' is usually used by Supabase
+
+        const url = 'https://ihhwhajrvkhditkpgjqv.supabase.co/storage/v1/object/customer-photos/' + fileName + "'";
+        const headers = {
+          apikey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloaHdoYWpydmtoZGl0a3BnanF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0Mjk4MTQsImV4cCI6MjA1MjAwNTgxNH0.QFxRdu2tTCWjus0RFgHEVAhl0-B8zClbZ_F5nsCgqg0'
+        };
+        fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: formData,
+        })
+        .then(response => {
+        if (response.ok) {
+            console.log('File uploaded successfully');
+            
+        } else {
+            console.error('File upload failed:', response.status, response.statusText);
+            response.text().then(text => console.error("Response body: ", text));
+        }
+        })
+        .catch(error => {
+        console.error('Network error:', error);
+        });
+
       }
 
       const { error: insertError } = await supabase
@@ -87,6 +115,7 @@ const CustomerForm = () => {
             photo_url: photoUrl
           }
         ]);
+        
 
       if (insertError) throw insertError;
       
