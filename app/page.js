@@ -4,6 +4,17 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
+
+
+// const Component = () => {
+//   if (typeof window === 'undefined') {
+//     return null; // Hindari SSR
+//   }
+
+//   const router = useRouter();
+//   return <div>Current Route: {router.pathname}</div>;
+// };
+
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -96,3 +107,12 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+export async function getStaticProps() {
+  try {
+    const data = await fetchSomeData();
+    return { props: { data } };
+  } catch (error) {
+    return { notFound: true }; // Jika error, beri fallback
+  }
+}
