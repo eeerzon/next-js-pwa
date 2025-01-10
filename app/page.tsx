@@ -4,17 +4,17 @@
 
 import { useState } from 'react';
 import Image from "next/image";
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+  // const router = useRouter();
   const handleLogin = () => {
     if (username === 'admin' && password === 'admin123') {
-      // window.location.href = '/dashboard';
-      router.push('/dashboard');
+      window.location.href = '/customer-input';
+      // router.push('/dashboard');
     } else {
       alert('Invalid credentials');
     }
