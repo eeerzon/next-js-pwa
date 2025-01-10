@@ -1,8 +1,19 @@
 'use client'
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/compat/router';
+import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
+
+
+
+// const Component = () => {
+//   if (typeof window === 'undefined') {
+//     return null; // Hindari SSR
+//   }
+
+//   const router = useRouter();
+//   return <div>Current Route: {router.pathname}</div>;
+// };
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -98,19 +109,10 @@ const LoginPage = () => {
 export default LoginPage;
 
 // export async function getStaticProps() {
-//     try {
-//       const data = await fetchSomeData();
-//       return { props: { data } };
-//     } catch (e) {
-//       return { notFound: true }; // Jika error, beri fallback
-//     }
+//   try {
+//     const data = await fetchSomeData();
+//     return { props: { data } };
+//   } catch (error) {
+//     return { notFound: true }; // Jika error, beri fallback
 //   }
-
-export async function getStaticProps(){
-    try {
-        const data = await fetchSomeData();
-        return { props: { data } };
-    } catch {
-        return { notFound: true };
-    }
-}
+// }
