@@ -112,7 +112,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const handleLogin = () => {
     if (username === 'admin' && password === 'admin123') {
-      window.location.href = 'page/dashboard';
+      window.location.href = 'pages/dashboard';
     } else {
       alert('Invalid credentials');
     }
