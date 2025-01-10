@@ -20,7 +20,7 @@ export default function Login() {
   const handleInstall = async () => {
     if (deferredPrompt) {
       deferredPrompt.prompt()
-      const { outcome } = await deferredPrompt.userChoice
+      // const { outcome } = await deferredPrompt.userChoice
       setDeferredPrompt(null)
     }
   }
@@ -28,10 +28,10 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: username,
-        password: password,
-      })
+      // const { data, error } = await supabase.auth.signInWithPassword({
+        // email: username,
+        // password: password,
+      // })
 
       if (error) throw error
 
@@ -103,4 +103,4 @@ export default function Login() {
       </div>
     </div>
   )
-}
+} 
