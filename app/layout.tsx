@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,6 +36,17 @@ export const metadata: Metadata = {
 
 export default function Home() {
   const router = useRouter();
+  return (
+    <div className={geistSans.variable}>
+      {/* <h1 className={geistMono.variable}>Hello World!</h1> */}
+      <button
+      onClick={() => {
+        router.push("/login");
+        }}
+        >
 
-  router.replace("/login");
+        </button>
+    </div>
+  );
+        
 }
