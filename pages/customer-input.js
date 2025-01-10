@@ -245,11 +245,20 @@ const CustomerForm = () => {
 
 export default CustomerForm;
 
-export async function getStaticProps() {
+// export async function getStaticProps() {
+//     try {
+//       const data = await fetchSomeData();
+//       return { props: { data } };
+//     } catch (e) {
+//       return { notFound: true }; // Jika error, beri fallback
+//     }
+//   }
+
+export async function getStaticProps(){
     try {
-      const data = await fetchSomeData();
-      return { props: { data } };
-    } catch (e) {
-      return { notFound: true }; // Jika error, beri fallback
+        const data = await fetchSomeData();
+        return { props: { data } };
+    } catch {
+        return { notFound: true };
     }
-  }
+}
