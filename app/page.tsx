@@ -131,7 +131,7 @@ export default function LoginPage() {
         />
 
 
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+        {/* <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900"> */}
           <div className="bg-white dark:bg-gray-800 p-6 rounded shadow-md w-80">
             <h2 className="text-lg font-bold text-center mb-4">Login</h2>
               <input
@@ -154,7 +154,7 @@ export default function LoginPage() {
                   Login
                 </button>
               </div>
-          </div>
+          {/* </div> */}
 
         </main>
     </div>
