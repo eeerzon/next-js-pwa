@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  Search, 
-  Filter, 
-  ArrowUpDown, 
-  Trash2, 
-  Pencil,
-  ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
+  FaSearch, 
+  FaFilter, 
+  FaSort, 
+  FaTrashAlt, 
+  FaPen, 
+  FaChevronLeft, 
+  FaChevronRight
+} from 'react-icons/fa';
 
 const CustomerCard = ({ customer, onDelete, onEdit }) => (
   <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 hover:shadow-lg transition-shadow duration-200">
@@ -46,13 +46,13 @@ const CustomerCard = ({ customer, onDelete, onEdit }) => (
         onClick={() => onEdit(customer)}
         className="p-2 text-blue-600 hover:text-blue-800 dark:text-blue-400"
       >
-        <Pencil className="h-5 w-5" />
+        <FaPen className="h-5 w-5" />
       </button>
       <button
         onClick={() => onDelete(customer.id)}
         className="p-2 text-red-600 hover:text-red-800 dark:text-red-400"
       >
-        <Trash2 className="h-5 w-5" />
+        <FaTrashAlt className="h-5 w-5" />
       </button>
     </div>
   </div>
@@ -160,7 +160,7 @@ const CustomerList = () => {
       <div className="mb-6 flex flex-wrap gap-4">
         <div className="flex-1 min-w-[200px]">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
             <input
               type="text"
               placeholder="Search by name or email"
@@ -186,7 +186,7 @@ const CustomerList = () => {
             onClick={() => handleSort('full_name')}
             className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700"
           >
-            <ArrowUpDown className="h-4 w-4" />
+            <FaSort className="h-4 w-4" />
             Sort by Name
           </button>
         </div>
@@ -211,7 +211,7 @@ const CustomerList = () => {
           disabled={page === 1}
           className="p-2 rounded-md border border-gray-300 disabled:opacity-50"
         >
-          <ChevronLeft className="h-5 w-5" />
+          <FaChevronLeft className="h-5 w-5" />
         </button>
         <span className="p-2">Page {page}</span>
         <button
@@ -219,7 +219,7 @@ const CustomerList = () => {
           disabled={customers.length < itemsPerPage}
           className="p-2 rounded-md border border-gray-300 disabled:opacity-50"
         >
-          <ChevronRight className="h-5 w-5" />
+          <FaChevronRight className="h-5 w-5" />
         </button>
       </div>
     </div>
