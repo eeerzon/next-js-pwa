@@ -1,246 +1,110 @@
-'use client'
-
-import React, { useState } from 'react';
-import { useRouter } from 'next/compat/router';
+import { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
-import { getNames } from 'country-list';
-import toast from 'react-hot-toast';
-import { supabase } from '../lib/supabase';
-import "react-datepicker/dist/react-datepicker.css";
+import Select from 'react-select';
+import { supabase } from '../../lib/supabase'; // Buat koneksi Supabase
+import 'react-datepicker/dist/react-datepicker.css';
 
-const CustomerForm = () => {
-  const router = useRouter();
-  const countries = getNames();
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    address: '',
-    birthDate: new Date(),
-    nationality: 'WNI',
-    country: '',
-    photo: null,
-    photoPreview: null
-  });
+type CustomerFormInputs = {
+  fullName: string;
+  email: string;
+  phone: string;
+  address: string;
+  dob: Date;
+  nationality: string;
+  country?: string;
+  photo: FileList;
+};
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+export default function AddCustomer() {
+  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<CustomerFormInputs>();
+  const [preview, setPreview] = useState<string | null>(null);
+  const nationality = watch('nationality');
 
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
+  const onSubmit: SubmitHandler<CustomerFormInputs> = async (data) => {
+    const { fullName, email, phone, address, dob, nationality, country, photo } = data;
+
+    const file = photo[0];
+    let photoUrl = '';
     if (file) {
-      setFormData(prev => ({
-        ...prev,
-        photo: file,
-        photoPreview: URL.createObjectURL(file)
-      }));
-    }
-  };
-
-  const validateForm = () => {
-    if (!formData.fullName) return 'Name is required';
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) return 'Invalid email format';
-    if (!/^\d+$/.test(formData.phone)) return 'Phone number must contain only digits';
-    if (!formData.address) return 'Address is required';
-    if (formData.birthDate > new Date()) return 'Birth date cannot be in the future';
-    if (formData.nationality === 'WNA' && !formData.country) return 'Country is required for WNA';
-    return null;
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const error = validateForm();
-    if (error) {
-      toast.error(error);
-      return;
+      const { data: uploadData, error } = await supabase.storage
+        .from('customer-photos')
+        .upload(`photos/${file.name}`, file);
+      if (error) return console.error(error.message);
+      photoUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${uploadData.path}`;
     }
 
-    setLoading(true);
-    try {
-      let photoUrl = '';
-      
-      if (formData.photo) {
-        const fileExt = formData.photo.name.split('.').pop();
-        const fileName = `${Math.random()}.${fileExt}`;
-        const { error: uploadError, data } = await supabase.storage
-          .from('customer-photos')
-          .upload(fileName, formData.photo);
-
-        if (uploadError) throw uploadError;
-        photoUrl = data.publicUrl;
-      }
-
-      const { error: insertError } = await supabase
-        .from('customers')
-        .insert([
-          {
-            full_name: formData.fullName,
-            email: formData.email,
-            phone: formData.phone,
-            address: formData.address,
-            birth_date: formData.birthDate,
-            nationality: formData.nationality,
-            country: formData.nationality === 'WNA' ? formData.country : null,
-            photo_url: photoUrl
-          }
-        ]);
-
-      if (insertError) throw insertError;
-      
-      toast.success('Customer added successfully');
-      router.push('/customers');
-    } catch (error) {
-      toast.error('Error adding customer: ' + error.message);
-    } finally {
-      setLoading(false);
-    }
+    const { error } = await supabase
+      .from('customers')
+      .insert({ fullName, email, phone, address, dob, nationality, country, photoUrl });
+    if (error) console.error(error.message);
+    else alert('Customer data saved successfully!');
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">
-        Add New Customer
-      </h1>
-
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="p-4 max-w-2xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Add Customer</h1>
+      <div>
+        <label>Full Name</label>
+        <input {...register('fullName', { required: true })} className="input" />
+        {errors.fullName && <span className="text-red-500">Full Name is required</span>}
+      </div>
+      <div>
+        <label>Email</label>
+        <input {...register('email', { required: true, pattern: /^\S+@\S+$/i })} className="input" />
+        {errors.email && <span className="text-red-500">Invalid email address</span>}
+      </div>
+      <div>
+        <label>Phone</label>
+        <input {...register('phone', { required: true, pattern: /^[0-9]+$/ })} className="input" />
+        {errors.phone && <span className="text-red-500">Phone must be numeric</span>}
+      </div>
+      <div>
+        <label>Address</label>
+        <textarea {...register('address', { required: true })} className="input" />
+        {errors.address && <span className="text-red-500">Address is required</span>}
+      </div>
+      <div>
+        <label>Date of Birth</label>
+        <DatePicker
+          selected={watch('dob')}
+          onChange={(date: Date) => setValue('dob', date)}
+          maxDate={new Date()}
+          className="input"
+        />
+        {errors.dob && <span className="text-red-500">Invalid date</span>}
+      </div>
+      <div>
+        <label>Nationality</label>
+        <select {...register('nationality', { required: true })} className="input">
+          <option value="WNI">WNI</option>
+          <option value="WNA">WNA</option>
+        </select>
+      </div>
+      {/* {nationality === 'WNA' && (
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Full Name *
-          </label>
-          <input
-            type="text"
-            name="fullName"
-            required
-            value={formData.fullName}
-            onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+          <label>Country</label>
+          <Select
+            options={[{ value: 'USA', label: 'USA' }, { value: 'UK', label: 'UK' }]} // Tambahkan daftar negara
+            onChange={(selected) => setValue('country', selected?.value || '')}
           />
         </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Email *
-          </label>
-          <input
-            type="email"
-            name="email"
-            required
-            value={formData.email}
-            onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Phone Number *
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            required
-            value={formData.phone}
-            onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Address *
-          </label>
-          <textarea
-            name="address"
-            required
-            value={formData.address}
-            onChange={handleInputChange}
-            rows={3}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Birth Date *
-          </label>
-          <DatePicker
-            selected={formData.birthDate}
-            onChange={date => setFormData(prev => ({ ...prev, birthDate: date }))}
-            maxDate={new Date()}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Nationality *
-          </label>
-          <select
-            name="nationality"
-            value={formData.nationality}
-            onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-          >
-            <option value="WNI">WNI</option>
-            <option value="WNA">WNA</option>
-          </select>
-        </div>
-
-        {formData.nationality === 'WNA' && (
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Country *
-            </label>
-            <select
-              name="country"
-              value={formData.country}
-              onChange={handleInputChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-            >
-              <option value="">Select Country</option>
-              {countries.map(country => (
-                <option key={country} value={country}>
-                  {country}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-            Photo
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handlePhotoChange}
-            className="mt-1 block w-full"
-          />
-          {formData.photoPreview && (
-            <img
-              src={formData.photoPreview}
-              alt="Preview"
-              className="mt-2 h-32 w-32 object-cover rounded-md"
-            />
-          )}
-        </div>
-
-        <div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-          >
-            {loading ? 'Saving...' : 'Save Customer'}
-          </button>
-        </div>
-      </form>
-    </div>
+      )} */}
+      <div>
+        <label>Photo</label>
+        <input
+          type="file"
+          {...register('photo')}
+          accept="image/*"
+          onChange={(e) => {
+            if (e.target.files?.[0]) {
+              setPreview(URL.createObjectURL(e.target.files[0]));
+            }
+          }}
+        />
+        {preview && <img src={preview} alt="Preview" className="w-32 h-32 mt-2" />}
+      </div>
+      <button type="submit" className="btn-primary">Submit</button>
+    </form>
   );
-};
-
-export default CustomerForm;
+}
