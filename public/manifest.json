@@ -1,7 +1,7 @@
 {
     "name": "PWA Login App",
     "short_name": "PWA Login",
-    "start_url": "./pages/login",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#007BFF",
