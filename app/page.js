@@ -43,7 +43,7 @@ const LoginPage = () => {
     // Simple credential check - in production, use Supabase Auth
     if (username === 'admin' && password === 'admin123') {
       localStorage.setItem('isAuthenticated', 'true');
-      router.push('/pages/customer-input');
+      router.push('/customer-input');
     } else {
       toast.error('Invalid credentials');
     }
