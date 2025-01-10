@@ -120,7 +120,7 @@ const CustomerForm = () => {
       if (insertError) throw insertError;
       
       toast.success('Customer added successfully');
-      router.push('/customers');
+      router.push('/dashboard');
     } catch (error) {
       toast.error('Error adding customer: ' + error.message);
     } finally {
