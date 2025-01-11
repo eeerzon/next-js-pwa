@@ -102,7 +102,7 @@ const CustomerEdit = () => {
         })
         .eq('id', formData.id); // Menentukan id yang akan diperbarui
 
-        if (insertError) throw insertError;
+        if (updateError) throw updateError;
 
       toast.success('Customer edited successfully');
       router.push('/dashboard');

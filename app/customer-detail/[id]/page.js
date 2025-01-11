@@ -11,7 +11,7 @@ const CustomerDetail = (params) => {
   const { id } = params;
   const [customer, setCustomer] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode] = useState(false);
 
   useEffect(() => {
     fetchCustomerDetails();
