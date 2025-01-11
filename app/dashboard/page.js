@@ -5,44 +5,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/app/lib/supabase';
 import { useDarkMode } from 'usehooks-ts';
 import { format } from 'date-fns';
-
-const Sidebar = ({ isDarkMode, toggle, setCollapsed, collapsed }) => (
-  <div
-    className={`fixed h-full bg-gray-200 dark:bg-gray-700 transition-all ${
-      collapsed ? 'w-16' : 'w-64'
-    }`}
-  >
-    <button
-      onClick={() => setCollapsed(!collapsed)}
-      className="p-2 text-gray-800 dark:text-white"
-    >
-      {collapsed ? '>' : '<'}
-    </button>
-    <div className={`${collapsed ? 'hidden' : ''} mt-4`}>
-      <button
-        onClick={toggle}
-        className="px-4 py-2 rounded bg-gray-300 dark:bg-gray-600 text-black dark:text-white"
-      >
-        Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
-      </button>
-      <div className="mt-4">
-        <button
-          onClick={() => router.push('/dashboard')}
-          className="block w-full px-4 py-2 text-left text-gray-800 dark:text-white"
-        >
-          Dashboard
-        </button>
-        <button
-          onClick={() => router.push('/add-customer')}
-          className="block w-full px-4 py-2 text-left text-gray-800 dark:text-white"
-        >
-          Add Customer
-        </button>
-      </div>
-    </div>
-  </div>
-);
-
+import Sidebar from '@/components/Sidebar';
 
 const Dashboard = () => {
   const { isDarkMode, toggle } = useDarkMode();
@@ -151,10 +114,12 @@ const Dashboard = () => {
           collapsed={collapsed}
         />
         <div
-          className={`flex-1 ml-${collapsed ? '16' : '64'} transition-all p-4`}
+          className={`flex-1 transition-all duration-300 ease-in-out ${
+            collapsed ? 'ml-16' : 'ml-64'
+          } p-4`}
         >
           <div className="max-w-2xl mx-auto p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
-          <h1 className="text-2xl font-bold mb-4">Customer List</h1>
+          <h1 className="text-2xl font-bold mb-4 text-black dark:text-white">Customer List</h1>
 
           {/* Filters */}
           <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

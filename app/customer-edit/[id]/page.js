@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/compat/router';
 import DatePicker from 'react-datepicker';
 import { getNames } from 'country-list';
 import toast from 'react-hot-toast';
@@ -10,13 +10,14 @@ import { useDarkMode } from 'usehooks-ts';
 import "react-datepicker/dist/react-datepicker.css";
 import Sidebar from '@/components/Sidebar';
 
-const CustomerForm = () => {
+const CustomerEdit = () => {
   const { isDarkMode, toggle } = useDarkMode();
   const router = useRouter();
   const countries = getNames();
   const [loading, setLoading] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [formData, setFormData] = useState({
+    id: 0,
     full_name: '',
     email: '',
     phone: '',
@@ -24,8 +25,9 @@ const CustomerForm = () => {
     birth_date: new Date(),
     nationality: 'WNI',
     country: '',
-    photo: null,
-    photoPreview: null
+    photo_url: '',
+    created_at: '',
+    update_at: ''
   });
 
   const handleInputChange = (e) => {
@@ -86,10 +88,9 @@ const CustomerForm = () => {
         photo_url = publicURL;
       }
 
-      const { error: insertError } = await supabase
+      const { error: updateError } = await supabase
         .from('customers')
-        .insert([
-          {
+        .update({
             full_name: formData.full_name,
             email: formData.email,
             phone: formData.phone,
@@ -98,16 +99,16 @@ const CustomerForm = () => {
             nationality: formData.nationality,
             country: formData.nationality === 'WNA' ? formData.country : null,
             photo_url: photo_url,
-          },
-        ]);
+        })
+        .eq('id', formData.id); // Menentukan id yang akan diperbarui
 
         if (insertError) throw insertError;
 
-      toast.success('Customer added successfully');
+      toast.success('Customer edited successfully');
       router.push('/dashboard');
 
     } catch (error) {
-      toast.error('Error adding customer: ' + error.message);
+      toast.error('Error editing customer: ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -284,4 +285,4 @@ const CustomerForm = () => {
   );
 };
 
-export default CustomerForm;
+export default CustomerEdit;
