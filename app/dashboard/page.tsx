@@ -92,7 +92,12 @@ export default function Dashboard() {
     if (error) {
       console.error('Error fetching customers:', error);
     } else {
-      setCustomers(data || []);
+      const validData = (data || []).map((customer) => ({
+        ...customer,
+        dob: customer.dob && !isNaN(new Date(customer.dob).getTime()) ? customer.dob : null,
+        createdAt: customer.createdAt && !isNaN(new Date(customer.createdAt).getTime()) ? customer.createdAt : null,
+      }));
+      setCustomers(validData);
     }
 
     setLoading(false);
@@ -193,7 +198,7 @@ export default function Dashboard() {
               <p className="text-center text-gray-500">{customer.email}</p>
               <p className="text-center">{customer.nationality}</p>
               <p className="text-center text-sm text-gray-400">
-                DOB: {format(new Date(customer.dob), 'dd/MM/yyyy')}
+                DOB: {customer.dob ? format(new Date(customer.dob), 'yyyy/MM/dd') : 'N/A'}
               </p>
               <div className="flex justify-between mt-4">
                 <button
