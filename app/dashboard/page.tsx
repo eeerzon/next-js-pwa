@@ -2,42 +2,46 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { supabase } from '../../lib/supabase';
+import { supabase } from '@/app/lib/supabase';
 import { format } from 'date-fns';
 
-// type Customer = {
-//   id: number;
-//   fullName: string;
-//   email: string;
-//   phone: string;
-//   address: string;
-//   dob: string;
-//   nationality: string;
-//   country?: string;
-//   photoUrl?: string;
-//   createdAt: string;
-// };
+type Customer = {
+  id: number;
+  fullName: string;
+  email: string;
+  phone: string;
+  address: string;
+  dob: string;
+  nationality: string;
+  country?: string;
+  photoUrl?: string;
+  createdAt: string;
+};
 
-/**
- * @typedef {Object} Customer
- * @property {number} id - Unique identifier for the customer
- * @property {string} fullName - Full name of the customer
- * @property {string} email - Email address of the customer
- * @property {string} phone - Phone number of the customer
- * @property {string} address - Address of the customer
- * @property {string} dob - Date of birth of the customer
- * @property {string} nationality - Nationality of the customer
- * @property {string} [country] - Country of the customer (optional)
- * @property {string} [photoUrl] - Photo URL of the customer (optional)
- * @property {string} createdAt - Creation date of the customer record
- */
+// /**
+//  * @typedef {Object} Customer
+//  * @property {number} id - Unique identifier for the customer
+//  * @property {string} fullName - Full name of the customer
+//  * @property {string} email - Email address of the customer
+//  * @property {string} phone - Phone number of the customer
+//  * @property {string} address - Address of the customer
+//  * @property {string} dob - Date of birth of the customer
+//  * @property {string} nationality - Nationality of the customer
+//  * @property {string} [country] - Country of the customer (optional)
+//  * @property {string} [photoUrl] - Photo URL of the customer (optional)
+//  * @property {string} createdAt - Creation date of the customer record
+//  */
 
 
 export default function Dashboard() {
 
     const router = useRouter();
 
-  const navigateToMenu1 = () => {
+    const navigateToMenu1 = () => {
+      router.push('/dashboard'); // Ganti '/menu1' dengan rute yang sesuai
+    };
+
+  const navigateToMenu2 = () => {
     router.push('/customer-input'); // Ganti '/menu1' dengan rute yang sesuai
   };
 
@@ -119,10 +123,12 @@ export default function Dashboard() {
         <aside className="w-64 bg-gray-800 text-white hidden md:block">
           <nav>
             <ul>
-            <li className="p-4 cursor-pointer hover:bg-gray-700" onClick={navigateToMenu1}>
+            <li className="p-4cursor-pointer hover:bg-gray-700" onClick={navigateToMenu1}>
+              Dashboard
+              </li>
+            <li className="p-4 cursor-pointer hover:bg-gray-700" onClick={navigateToMenu2}>
               Input Customer Data
             </li>
-              <li className="p-4">Menu 2</li>
             </ul>
           </nav>
         </aside>
