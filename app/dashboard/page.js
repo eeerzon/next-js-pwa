@@ -43,33 +43,6 @@ const Sidebar = ({ isDarkMode, toggle, setCollapsed, collapsed }) => (
   </div>
 );
 
-// type Customer = {
-//   id: number;
-//   full_name: string;
-//   email: string;
-//   phone: string;
-//   address: string;
-//   brith_date: string;
-//   nationality: string;
-//   country?: string;
-//   photo_url?: string;
-//   created_at: string;
-//   updated_at: string;
-// };
-
-// /**
-//  * @typedef {Object} Customer
-//  * @property {number} id - Unique identifier for the customer
-//  * @property {string} fullName - Full name of the customer
-//  * @property {string} email - Email address of the customer
-//  * @property {string} phone - Phone number of the customer
-//  * @property {string} address - Address of the customer
-//  * @property {string} dob - Date of birth of the customer
-//  * @property {string} nationality - Nationality of the customer
-//  * @property {string} [country] - Country of the customer (optional)
-//  * @property {string} [photoUrl] - Photo URL of the customer (optional)
-//  * @property {string} createdAt - Creation date of the customer record
-//  */
 
 const Dashboard = () => {
   const { isDarkMode, toggle } = useDarkMode();
@@ -83,10 +56,10 @@ const Dashboard = () => {
     endDate: '',
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // const [sidebarOpen, setSidebarOpen] = useState(false);
   const itemsPerPage = 5;
   const [collapsed, setCollapsed] = useState(false);
-  const [Customer, setFormData] = useState({
+  const [customers, setCustomers] = useState({
     id: 0,
     full_name: '',
     email: '',
@@ -150,13 +123,13 @@ const Dashboard = () => {
     setCurrentPage(1); // Reset to first page on filter change
   };
 
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+  // const toggleDarkMode = () => {
+  //   setIsDarkMode(!isDarkMode);
+  // };
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  // const toggleSidebar = () => {
+  //   setSidebarOpen(!sidebarOpen);
+  // };
 
   // const deleteCustomer = async (id: number) => {
   //   const { error } = await supabase.from('customers').delete().eq('id', id);
@@ -293,4 +266,4 @@ const Dashboard = () => {
 
 };
 
-export default CustomerForm;
+export default Dashboard;
