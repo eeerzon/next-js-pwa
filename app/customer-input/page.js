@@ -129,149 +129,156 @@ const CustomerForm = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4 bg-white">
-      <h1 className="text-2xl font-bold mb-6 text-gray-300 dark:text-white">
-        Add New Customer
-      </h1>
+    <div className="min-h-screen bg-white">
+      <div className="max-w-2xl mx-auto p-4 bg-white">
+        <h1 className="text-2xl font-bold mb-6 text-gray-300 dark:text-white">
+          Add New Customer
+        </h1>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Full Name *
-          </label>
-          <input
-            type="text"
-            name="fullName"
-            required
-            value={formData.fullName}
-            onChange={handleInputChange}
-            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
-              formData.fullName ? 'text-black' : 'text-gray-700'
-            }`}
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Email *
-          </label>
-          <input
-            type="email"
-            name="email"
-            required
-            value={formData.email}
-            onChange={handleInputChange}
-            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
-              formData.email ? 'text-black' : 'text-gray-700'
-            }`}
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Phone Number *
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            required
-            value={formData.phone}
-            onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-black"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Address *
-          </label>
-          <textarea
-            name="address"
-            required
-            value={formData.address}
-            onChange={handleInputChange}
-            rows={3}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-black"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Birth Date *
-          </label>
-          <DatePicker
-            selected={formData.birthDate}
-            onChange={date => setFormData(prev => ({ ...prev, birthDate: date }))}
-            maxDate={new Date()}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-black"
-          />
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Nationality *
-          </label>
-          <select
-            name="nationality"
-            value={formData.nationality}
-            onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-black"
-          >
-            <option className="text-gray-800" value="WNI">WNI</option>
-            <option className="text-gray-800" value="WNA">WNA</option>
-          </select>
-        </div>
-
-        {formData.nationality === 'WNA' && (
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-wwhite">
-              Country *
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Full Name *
+            </label>
+            <input
+              type="text"
+              name="fullName"
+              required
+              value={formData.fullName}
+              onChange={handleInputChange}
+              className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
+                formData.fullName ? 'text-black' : 'text-gray-700'
+              }`}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Email *
+            </label>
+            <input
+              type="email"
+              name="email"
+              required
+              value={formData.email}
+              onChange={handleInputChange}
+              className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
+                formData.email ? 'text-black' : 'text-gray-700'
+              }`}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Phone Number *
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              required
+              value={formData.phone}
+              onChange={handleInputChange}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-black"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Address *
+            </label>
+            <textarea
+              name="address"
+              required
+              value={formData.address}
+              onChange={handleInputChange}
+              rows={3}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-black"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Birth Date *
+            </label>
+            <DatePicker
+              selected={formData.birthDate}
+              onChange={date => setFormData(prev => ({ ...prev, birthDate: date }))}
+              maxDate={new Date()}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-black"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Nationality *
             </label>
             <select
-              name="country"
-              value={formData.country}
+              name="nationality"
+              value={formData.nationality}
               onChange={handleInputChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-black"
+              className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
+                formData.nationality ? 'text-black' : 'text-gray-700'
+              }`}
             >
-              <option value="">Select Country</option>
-              {countries.map(country => (
-                <option key={country} value={country}>
-                  {country}
-                </option>
-              ))}
+              <option className="text-gray-800" value="WNI">WNI</option>
+              <option className="text-gray-800" value="WNA">WNA</option>
             </select>
           </div>
-        )}
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-white">
-            Photo
-          </label>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handlePhotoChange}
-            className="mt-1 block w-full"
-          />
-          {formData.photoPreview && (
-            <img
-              src={formData.photoPreview}
-              alt="Preview"
-              className="mt-2 h-32 w-32 object-cover rounded-md"
-            />
+          {formData.nationality === 'WNA' && (
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-wwhite">
+                Country *
+              </label>
+              <select
+                name="country"
+                value={formData.country}
+                onChange={handleInputChange}
+                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
+                  formData.country ? 'text-black' : 'text-gray-700'
+                }`}
+                >
+                <option className="text-gray-800" value="">Select Country</option>
+                {countries.map(country => (
+                  <option className="text-gray-800" key={country} value={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
+            </div>
           )}
-        </div>
 
-        <div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-          >
-            {loading ? 'Saving...' : 'Save Customer'}
-          </button>
-        </div>
-      </form>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              Photo
+            </label>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handlePhotoChange}
+              className="mt-1 block w-full"
+            />
+            {formData.photoPreview && (
+              <img
+                src={formData.photoPreview}
+                alt="Preview"
+                className="mt-2 h-32 w-32 object-cover rounded-md text-black"
+              />
+            )}
+          </div>
+
+          <div>
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+              onClick={() => handleSubmit}
+            >
+              {loading ? 'Saving...' : 'Save Customer'}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
