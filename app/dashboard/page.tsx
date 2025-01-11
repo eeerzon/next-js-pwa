@@ -205,9 +205,9 @@ export default function Dashboard() {
                 alt={customer.full_name}
                 className="w-32 h-32 rounded-full mx-auto"
               />
-              <h2 className="text-xl font-bold mt-4 text-center">{customer.full_name}</h2>
+              <h2 className="text-xl font-bold mt-4 text-center text-gray-800">{customer.full_name}</h2>
               <p className="text-center text-gray-800">{customer.email}</p>
-              <p className="text-center">{customer.nationality}</p>
+              <p className="text-center text-gray-800">{customer.nationality}</p>
               <p className="text-center text-sm text-gray-800">
                 DOB: {customer.brith_date ? format(new Date(customer.brith_date), 'dd//MM/yyyy') : 'N/A'}
               </p>
