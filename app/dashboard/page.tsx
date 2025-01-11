@@ -53,8 +53,8 @@ export default function Dashboard() {
   const [filters, setFilters] = useState({
     search: '',
     nationality: '',
-    startDate: '',
-    endDate: '',
+    // startDate: '',
+    // endDate: '',
   });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -79,13 +79,13 @@ export default function Dashboard() {
       query = query.eq('nationality', filters.nationality);
     }
 
-    if (filters.startDate) {
-      query = query.gte('createdAt', filters.startDate);
-    }
+    // if (filters.startDate) {
+    //   query = query.gte('createdAt', filters.startDate);
+    // }
 
-    if (filters.endDate) {
-      query = query.lte('createdAt', filters.endDate);
-    }
+    // if (filters.endDate) {
+    //   query = query.lte('createdAt', filters.endDate);
+    // }
 
     const { data, error } = await query;
 
@@ -159,20 +159,20 @@ export default function Dashboard() {
           <option value="WNI">WNI</option>
           <option value="WNA">WNA</option>
         </select>
-        <input
+        {/* <input
           type="date"
           name="startDate"
           className="input"
           value={filters.startDate}
           onChange={handleFilterChange}
-        />
-        <input
+        /> */}
+        {/* <input
           type="date"
           name="endDate"
           className="input"
           value={filters.endDate}
           onChange={handleFilterChange}
-        />
+        /> */}
       </div>
 
       {/* Customer Cards */}
