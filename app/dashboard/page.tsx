@@ -7,15 +7,16 @@ import { format } from 'date-fns';
 
 type Customer = {
   id: number;
-  fullName: string;
+  full_name: string;
   email: string;
   phone: string;
   address: string;
-  dob: string;
+  brith_date: string;
   nationality: string;
   country?: string;
-  photoUrl?: string;
-  createdAt: string;
+  photo_url?: string;
+  created_at: string;
+  update_at: string;
 };
 
 // /**
@@ -190,20 +191,20 @@ export default function Dashboard() {
           {customers.map((customer) => (
             <div key={customer.id} className="card bg-white shadow-md p-4">
               <img
-                src={customer.photoUrl || '/placeholder.png'}
-                alt={customer.fullName}
+                src={customer.photo_url }
+                alt={customer.full_name}
                 className="w-32 h-32 rounded-full mx-auto"
               />
-              <h2 className="text-xl font-bold mt-4 text-center">{customer.fullName}</h2>
+              <h2 className="text-xl font-bold mt-4 text-center">{customer.full_name}</h2>
               <p className="text-center text-gray-500">{customer.email}</p>
               <p className="text-center">{customer.nationality}</p>
               <p className="text-center text-sm text-gray-400">
-                DOB: {customer.dob ? format(new Date(customer.dob), 'yyyy/MM/dd') : 'N/A'}
+                DOB: {customer.brith_date ? format(new Date(customer.brith_date), 'dd//MM/yyyy') : 'N/A'}
               </p>
               <div className="flex justify-between mt-4">
                 <button
                   className="btn-primary"
-                  onClick={() => alert(`Edit feature for ${customer.fullName} not implemented yet.`)}
+                  onClick={() => alert(`Edit feature for ${customer.full_name} not implemented yet.`)}
                 >
                   Edit
                 </button>
