@@ -1,12 +1,12 @@
 'use client';
 
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
-
+import { useRouter } from 'next/navigation';
 
 
 const Sidebar = ({ isDarkMode, toggle, setCollapsed, collapsed }) => {
-    const navigate = useNavigate();
+    const router = useRouter();
   
     return (
       <div
@@ -29,13 +29,13 @@ const Sidebar = ({ isDarkMode, toggle, setCollapsed, collapsed }) => {
           </button>
           <div className="mt-4">
             <button
-              onClick={() => navigate('/dashboard')}
+              onClick={() => router.push('/dashboard')}
               className="block w-full px-4 py-2 text-left text-gray-800 dark:text-white"
             >
               Dashboard
             </button>
             <button
-              onClick={() => navigate('/add-customer')}
+              onClick={() => router.push('/add-customer')}
               className="block w-full px-4 py-2 text-left text-gray-800 dark:text-white"
             >
               Add Customer
