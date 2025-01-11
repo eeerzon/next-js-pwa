@@ -129,7 +129,7 @@ const CustomerForm = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
+    <div className="max-w-2xl mx-auto p-4 bg-white">
       <h1 className="text-2xl font-bold mb-6 text-gray-300 dark:text-white">
         Add New Customer
       </h1>
@@ -145,7 +145,9 @@ const CustomerForm = () => {
             required
             value={formData.fullName}
             onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-black"
+            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
+              formData.fullName ? 'text-black' : 'text-gray-700'
+            }`}
           />
         </div>
 
@@ -159,7 +161,9 @@ const CustomerForm = () => {
             required
             value={formData.email}
             onChange={handleInputChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-black"
+            className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
+              formData.email ? 'text-black' : 'text-gray-700'
+            }`}
           />
         </div>
 

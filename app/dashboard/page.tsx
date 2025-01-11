@@ -141,11 +141,11 @@ export default function Dashboard() {
           </nav>
         </aside>
 
-        <main className="flex-1 p-4">
+        <main className="flex-1 p-4 bg-white">
 
 
         <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Customer List</h1>
+      <h1 className="text-2xl font-bold mb-4 text-black">Customer List</h1>
 
       {/* Filters */}
       <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -235,17 +235,17 @@ export default function Dashboard() {
       {/* Pagination */}
       <div className="mt-4 flex justify-between items-center">
         <button
-          className="btn-secondary"
+          className="btn-secondary text-black"
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}
         >
           Previous
         </button>
-        <p>
+        <p className="text-black">
           Page {currentPage} / {Math.ceil(customers.length / itemsPerPage)}
         </p>
         <button
-          className="btn-secondary"
+          className="btn-secondary text-black"
           disabled={customers.length < itemsPerPage}
           onClick={() => setCurrentPage((prev) => prev + 1)}
         >
