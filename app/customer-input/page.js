@@ -107,7 +107,7 @@ const CustomerForm = () => {
         const fileName = `${Date.now()}.${fileExt}`;
         const filePath = `customer-photos/${fileName}`;
 
-        const { error: uploadError, data } = await supabase.storage
+        const { error: uploadError} = await supabase.storage
           .from('customer-photos')
           .upload(filePath, formData.photo);
 
