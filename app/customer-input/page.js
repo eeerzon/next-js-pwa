@@ -128,13 +128,13 @@ const CustomerForm = () => {
           } p-4`}
         >
           <div className="max-w-2xl mx-auto p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
-            <h1 className="text-2xl font-bold mb-6 text-gray-700 dark:text-white">
+            <h1 className="text-2xl font-bold mb-6 text-black dark:text-white">
               Add New Customer
             </h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              <label className="block text-sm font-medium text-black dark:text-white">
                 Full Name *
               </label>
               <input
@@ -150,7 +150,7 @@ const CustomerForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              <label className="block text-sm font-medium text-black dark:text-white">
                 Email *
               </label>
               <input
@@ -166,7 +166,7 @@ const CustomerForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              <label className="block text-sm font-medium text-black dark:text-white">
                 Phone Number *
               </label>
               <input
@@ -180,7 +180,7 @@ const CustomerForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              <label className="block text-sm font-medium text-black dark:text-white">
                 Address *
               </label>
               <textarea
@@ -194,7 +194,7 @@ const CustomerForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              <label className="block text-sm font-medium text-black dark:text-white">
                 Birth Date *
               </label>
               <DatePicker
@@ -206,7 +206,7 @@ const CustomerForm = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              <label className="block text-sm font-medium text-black dark:text-white">
                 Nationality *
               </label>
               <select
@@ -217,14 +217,14 @@ const CustomerForm = () => {
                   formData.nationality ? 'text-black' : 'text-gray-700'
                 }`}
               >
-                <option className="text-gray-800" value="WNI">WNI</option>
-                <option className="text-gray-800" value="WNA">WNA</option>
+                <option className="text-black" value="WNI">WNI</option>
+                <option className="text-black" value="WNA">WNA</option>
               </select>
             </div>
 
             {formData.nationality === 'WNA' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-wwhite">
+                <label className="block text-sm font-medium text-black dark:text-wwhite">
                   Country *
                 </label>
                 <select
@@ -235,9 +235,9 @@ const CustomerForm = () => {
                     formData.country ? 'text-black' : 'text-gray-700'
                   }`}
                   >
-                  <option className="text-gray-800" value="">Select Country</option>
+                  <option className="text-black" value="">Select Country</option>
                   {countries.map(country => (
-                    <option className="text-gray-800" key={country} value={country}>
+                    <option className="text-black" key={country} value={country}>
                       {country}
                     </option>
                   ))}
@@ -246,7 +246,7 @@ const CustomerForm = () => {
             )}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-white">
+              <label className="block text-sm font-medium text-black dark:text-white">
                 Photo
               </label>
               <input
@@ -257,7 +257,7 @@ const CustomerForm = () => {
               />
               {formData.photoPreview && (
                 <div className="mt-2">
-                  <p className="text-sm text-black">{formData.photo.name}</p>
+                  <p className="text-sm text-black dark:text-white">{formData.photo.name}</p>
                   <img
                     src={formData.photoPreview}
                     alt="Preview"

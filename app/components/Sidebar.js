@@ -35,7 +35,7 @@ const Sidebar = ({ isDarkMode, toggle, setCollapsed, collapsed }) => {
               Dashboard
             </button>
             <button
-              onClick={() => router.push('/add-customer')}
+              onClick={() => router.push('/customer-input')}
               className="block w-full px-4 py-2 text-left text-gray-800 dark:text-white"
             >
               Add Customer

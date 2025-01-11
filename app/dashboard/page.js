@@ -71,8 +71,8 @@ const Dashboard = () => {
     } else {
       const validData = (data || []).map((customer) => ({
         ...customer,
-        dob: customer.dob && !isNaN(new Date(customer.dob).getTime()) ? customer.dob : null,
-        createdAt: customer.createdAt && !isNaN(new Date(customer.createdAt).getTime()) ? customer.createdAt : null,
+        birth_date: customer.birth_date && !isNaN(new Date(customer.birth_date).getTime()) ? customer.birth_date : null,
+        created_at: customer.created_at && !isNaN(new Date(customer.created_at).getTime()) ? customer.created_at : null,
       }));
       setCustomers(validData);
     }
@@ -133,25 +133,25 @@ const Dashboard = () => {
             />
             <select
               name="nationality"
-              className="input"
+              className="input text-black"
               value={filters.nationality}
               onChange={handleFilterChange}
             >
-              <option value="">All Nationalities</option>
-              <option value="WNI">WNI</option>
-              <option value="WNA">WNA</option>
+              <option className="text-black" value="">All Nationalities</option>
+              <option className="text-black" value="WNI">WNI</option>
+              <option className="text-black" value="WNA">WNA</option>
             </select>
             <input
               type="date"
               name="startDate"
-              className="input"
+              className="input text-black"
               value={filters.startDate}
               onChange={handleFilterChange}
             />
             <input
               type="date"
               name="endDate"
-              className="input"
+              className="input text-black"
               value={filters.endDate}
               onChange={handleFilterChange}
             />
@@ -174,12 +174,12 @@ const Dashboard = () => {
                     alt={customer.full_name}
                     className="w-32 h-32 rounded-full mx-auto"
                   />
-                  <h2 className="text-xl font-bold mt-4 text-center">
+                  <h2 className="text-xl font-bold mt-4 text-center text-black dark:text-white">
                     {customer.full_name}
                   </h2>
-                  <p className="text-center">{customer.email}</p>
-                  <p className="text-center">{customer.nationality}</p>
-                  <p className="text-center text-sm">
+                  <p className="text-center text-black dark:text-white">{customer.email}</p>
+                  <p className="text-center text-black dark:text-white">{customer.nationality}</p>
+                  <p className="text-center text-sm text-black dark:text-white">
                     DOB: {customer.brith_date ? format(new Date(customer.brith_date), 'dd/MM/yyyy') : 'N/A'}
                   </p>
                   <div className="flex justify-between mt-4">
