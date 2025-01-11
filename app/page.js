@@ -79,14 +79,14 @@ const LoginPage = () => {
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
                 <input
-                  type="email"
+                  type="text"
                   required
                   className={`appearance-none rounded-t-md relative block w-full px-3 py-2 border placeholder-gray-500 focus:outline-none sm:text-sm ${
                     darkMode
                       ? 'bg-gray-700 border-gray-600 text-white focus:ring-blue-500 focus:border-blue-500'
                       : 'bg-white border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500'
                   }`}
-                  placeholder="Email"
+                  placeholder="Username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
