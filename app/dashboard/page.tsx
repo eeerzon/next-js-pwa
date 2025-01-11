@@ -159,25 +159,31 @@ export default function Dashboard() {
         />
         <select
           name="nationality"
-          className="input"
+          className="input text-gray-800"
           value={filters.nationality}
           onChange={handleFilterChange}
         >
-          <option value="">All Nationalities</option>
-          <option value="WNI">WNI</option>
-          <option value="WNA">WNA</option>
+          <option className="text-gray-800" value="">
+            All Nationalities
+          </option>
+          <option className="text-gray-800" value="WNI">
+            WNI
+          </option>
+          <option className="text-gray-800" value="WNA">
+            WNA
+          </option>
         </select>
         <input
           type="date"
           name="startDate"
-          className="input"
+          className="input text-gray-800"
           value={filters.startDate}
           onChange={handleFilterChange}
         />
         <input
           type="date"
           name="endDate"
-          className="input"
+          className="input text-gray-800"
           value={filters.endDate}
           onChange={handleFilterChange}
         />
@@ -189,27 +195,31 @@ export default function Dashboard() {
       ) : customers.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {customers.map((customer) => (
-            <div key={customer.id} className="card bg-white shadow-md p-4">
+            <div 
+            key={customer.id}
+            className="card bg-white shadow-md p-4 cursor-pointer hover:shadow-lg transition duration-200"
+            // onClick={() => router.push(`/customer-detail/${customer.id}`)}
+            > 
               <img
                 src={customer.photo_url }
                 alt={customer.full_name}
                 className="w-32 h-32 rounded-full mx-auto"
               />
               <h2 className="text-xl font-bold mt-4 text-center">{customer.full_name}</h2>
-              <p className="text-center text-gray-500">{customer.email}</p>
+              <p className="text-center text-gray-800">{customer.email}</p>
               <p className="text-center">{customer.nationality}</p>
-              <p className="text-center text-sm text-gray-400">
+              <p className="text-center text-sm text-gray-800">
                 DOB: {customer.brith_date ? format(new Date(customer.brith_date), 'dd//MM/yyyy') : 'N/A'}
               </p>
               <div className="flex justify-between mt-4">
                 <button
-                  className="btn-primary"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                   onClick={() => alert(`Edit feature for ${customer.full_name} not implemented yet.`)}
                 >
                   Edit
                 </button>
                 <button
-                  className="btn-danger"
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
                   onClick={() => deleteCustomer(customer.id)}
                 >
                   Delete
