@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { supabase } from '@/app/lib/supabase';
 import { format } from 'date-fns';
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/app/components/Sidebar';
 
 const CustomerDetail = (params) => {
   const router = useRouter();

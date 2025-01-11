@@ -5,10 +5,10 @@ import { useRouter } from 'next/compat/router';
 import DatePicker from 'react-datepicker';
 import { getNames } from 'country-list';
 import toast from 'react-hot-toast';
-import { supabase } from '../lib/supabase';
+import { supabase } from '@/app/lib/supabase';
 import { useDarkMode } from 'usehooks-ts';
 import "react-datepicker/dist/react-datepicker.css";
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/app/components/Sidebar';
 
 const CustomerEdit = () => {
   const { isDarkMode, toggle } = useDarkMode();

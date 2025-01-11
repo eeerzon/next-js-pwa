@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { supabase } from '@/app/lib/supabase';
 import { useDarkMode } from 'usehooks-ts';
 import { format } from 'date-fns';
-import Sidebar from '@/components/Sidebar';
+import Sidebar from '@/app/components/Sidebar';
 
 const Dashboard = () => {
   const { isDarkMode, toggle } = useDarkMode();
