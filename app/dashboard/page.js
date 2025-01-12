@@ -23,7 +23,7 @@ const Dashboard = () => {
   const itemsPerPage = 5;
   const [collapsed, setCollapsed] = useState(false);
   const [customers, setCustomers] = useState({
-    id: 0,
+    id: "",
     full_name: '',
     email: '',
     phone: '',
@@ -47,6 +47,9 @@ const Dashboard = () => {
       .from('customers')
       .select('*')
       .range((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage - 1);
+
+      
+
 
     if (filters.search) {
       query = query.or(`fullName.ilike.%${filters.search}%,email.ilike.%${filters.search}%`);
@@ -77,8 +80,21 @@ const Dashboard = () => {
       setCustomers(validData);
     }
 
+    
+    console.log('data : ', customers);
+
     setLoading(false);
   };
+
+  const handleNavigate = (id) => {
+    window.customerID = id;
+
+    // console.log('ID : ', id);
+
+    router.push(`/customer-detail/${id}`)
+  };
+
+  
   
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
@@ -133,7 +149,7 @@ const Dashboard = () => {
             />
             <select
               name="nationality"
-              className="input text-black"
+              className="input text-gray-500"
               value={filters.nationality}
               onChange={handleFilterChange}
             >
@@ -144,14 +160,14 @@ const Dashboard = () => {
             <input
               type="date"
               name="startDate"
-              className="input text-black"
+              className="input text-gray-500"
               value={filters.startDate}
               onChange={handleFilterChange}
             />
             <input
               type="date"
               name="endDate"
-              className="input text-black"
+              className="input text-gray-500"
               value={filters.endDate}
               onChange={handleFilterChange}
             />
@@ -185,7 +201,7 @@ const Dashboard = () => {
                   <div className="flex justify-between mt-4">
                     <button
                       className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                      onClick={() => router.push(`/customer-detail/${customer.id}`)}
+                      onClick={() => handleNavigate(customer.id)}
                     >
                       Details
                     </button>

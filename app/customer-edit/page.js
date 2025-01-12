@@ -105,7 +105,7 @@ const CustomerEdit = () => {
         if (updateError) throw updateError;
 
       toast.success('Customer edited successfully');
-      router.push('/dashboard');
+      router.push(`/customer-detail/${customer.id}`);
 
     } catch (error) {
       toast.error('Error editing customer: ' + error.message);

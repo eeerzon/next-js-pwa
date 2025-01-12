@@ -28,6 +28,36 @@ const CustomerForm = () => {
     photoPreview: null
   });
 
+  
+  // const [formData, setFormData] = useState({
+  //   full_name: 'sadfdgh',
+  //   email: 'safgh@gmail.com',
+  //   phone: '43569',
+  //   address: 'dfdggdf',
+  //   birth_date: new Date(),
+  //   nationality: 'WNI',
+  //   country: '',
+  //   photo: null,
+  //   photoPreview: null
+  // });
+
+  // const [inputValue, setInputValue] = useState('');
+
+  // const { name, value, type, files } = e.target;
+  //   if (type === "file") {
+  //     const file = files[0];
+  //     setFormData(prev => ({
+  //       ...prev,
+  //       [name]: file,
+  //       photoPreview: file ? URL.createObjectURL(file) : null
+  //     }));
+  //   } else {
+  //     setFormData(prev => ({
+  //       ...prev,
+  //       [name]: value
+  //     }));
+  //   }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -58,6 +88,7 @@ const CustomerForm = () => {
     e.preventDefault();
     const error = validateForm();
     if (error) {
+      console.log(error);
       toast.error(error);
       return;
     }
@@ -67,23 +98,42 @@ const CustomerForm = () => {
       let photo_url = '';
       
       if (formData.photo) {
-        const fileExt = formData.photo.name.split('.').pop();
-        const fileName = `${Date.now()}.${fileExt}`;
-        const filePath = `customer-photos/${fileName}`;
+        const fileExt = formData.photo.name;
+        // const fileExt = formData.photo.name.split('.').pop();
+        // const fileName = `${Date.now()}.${fileExt}`;
+        // const filePath = `customer-photos/${fileName}`;
+        const filePath = `customer-photos/${fileExt}`;
 
-        const { error: uploadError} = await supabase.storage
-          .from('customer-photos')
-          .upload(filePath, formData.photo);
+        console.log('image Name:', formData.photo.name);
 
-        if (uploadError) throw uploadError;
+        console.log('file Path:', filePath);
+        console.log('file :', formData.photo);
 
-        const { publicURL, error: publicUrlError } = supabase.storage
-          .from('customer-photos')
-          .getPublicUrl(filePath);
+          const { error } = await supabase.storage
+            .from('customer-photos')
+            .upload(filePath, formData.photo);
+      
+          if (error) {
+            throw error;
+          }
+      
+        console.log('File uploaded successfully:');
 
-        if (publicUrlError) throw publicUrlError;
+        try {
+          const { publicURL, error } = supabase.storage
+            .from('customer-photos')  // Your bucket name
+            .getPublicUrl(filePath);
+
+        if (error) throw error;
+
+        console.log('Public URL:', publicURL);
 
         photo_url = publicURL;
+        } catch (error){
+          console.error('Error getting public URL:', error.message);
+        }
+
+        
       }
 
       const { error: insertError } = await supabase
@@ -132,36 +182,32 @@ const CustomerForm = () => {
               Add New Customer
             </h1>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium text-black dark:text-white">
                 Full Name *
               </label>
               <input
                 type="text"
-                name="fullName"
+                name="full_name"
                 required
-                value={formData.fullName}
+                value={formData.full_name}
                 onChange={handleInputChange}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
-                  formData.fullName ? 'text-black' : 'text-gray-700'
-                }`}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-black dark:text-white">
+            <label className="block text-sm font-medium text-black dark:text-white">
                 Email *
               </label>
               <input
-                type="email"
+                type="text"
                 name="email"
                 required
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
-                  formData.email ? 'text-black' : 'text-gray-700'
-                }`}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-white"
               />
             </div>
 
@@ -175,7 +221,7 @@ const CustomerForm = () => {
                 required
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-black"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-white"
               />
             </div>
 
@@ -189,7 +235,7 @@ const CustomerForm = () => {
                 value={formData.address}
                 onChange={handleInputChange}
                 rows={3}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-black"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-white"
               />
             </div>
 
@@ -201,7 +247,7 @@ const CustomerForm = () => {
                 selected={formData.birthDate}
                 onChange={date => setFormData(prev => ({ ...prev, birthDate: date }))}
                 maxDate={new Date()}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-black"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-white"
               />
             </div>
 
@@ -213,31 +259,27 @@ const CustomerForm = () => {
                 name="nationality"
                 value={formData.nationality}
                 onChange={handleInputChange}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
-                  formData.nationality ? 'text-black' : 'text-gray-700'
-                }`}
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-white"
               >
-                <option className="text-black" value="WNI">WNI</option>
-                <option className="text-black" value="WNA">WNA</option>
+                <option className="text-black dark:white" value="WNI">WNI</option>
+                <option className="text-black dark:white" value="WNA">WNA</option>
               </select>
             </div>
 
             {formData.nationality === 'WNA' && (
               <div>
-                <label className="block text-sm font-medium text-black dark:text-wwhite">
+                <label className="block text-sm font-medium text-black dark:text-white">
                   Country *
                 </label>
                 <select
                   name="country"
                   value={formData.country}
                   onChange={handleInputChange}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 ${
-                    formData.country ? 'text-black' : 'text-gray-700'
-                  }`}
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 text-gray-700 dark:text-white"
                   >
-                  <option className="text-black" value="">Select Country</option>
+                  <option className="text-black dark:white" value="">Select Country</option>
                   {countries.map(country => (
-                    <option className="text-black" key={country} value={country}>
+                    <option className="text-black dark:white" key={country} value={country}>
                       {country}
                     </option>
                   ))}
@@ -253,7 +295,7 @@ const CustomerForm = () => {
                 type="file"
                 accept="image/*"
                 onChange={handlePhotoChange}
-                className="mt-1 block w-full"
+                className="mt-1 block w-full text-black dark:text-white"
               />
               {formData.photoPreview && (
                 <div className="mt-2">
@@ -266,17 +308,18 @@ const CustomerForm = () => {
                 </div>
               )}
             </div>
-
-            <div>
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-                >
-                  {loading ? 'Saving...' : 'Save Customer'}
-                </button>
-              </div>
+            <button
+              type="submit"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              onClick={handleSubmit}
+              >
+              Save Customer
+            </button>
+            
             </form>
+            <div>
+            
+              </div>
           </div>
         </div>
       </div>

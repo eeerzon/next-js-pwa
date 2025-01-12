@@ -22,10 +22,21 @@ const LoginPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-    });
+    // Memastikan bahwa kode hanya dijalankan di client-side
+    if (typeof window !== 'undefined') {
+      const handleBeforeInstallPrompt = (e) => {
+        e.preventDefault(); // Mencegah dialog install default muncul
+        setDeferredPrompt(e); // Menyimpan event prompt yang ditunda
+      };
+
+      // Menambahkan event listener hanya di client-side
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+
+      // Cleanup event listener ketika komponen unmount
+      return () => {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
+      };
+    }
   }, []);
 
   const handleInstall = async () => {
