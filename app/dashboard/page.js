@@ -20,7 +20,7 @@ const Dashboard = () => {
   });
   const [currentPage, setCurrentPage] = useState(1);
   // const [sidebarOpen, setSidebarOpen] = useState(false);
-  const itemsPerPage = 5;
+  const itemsPerPage = 30;
   const [collapsed, setCollapsed] = useState(false);
   const [customers, setCustomers] = useState({
     id: "",
@@ -87,7 +87,7 @@ const Dashboard = () => {
   };
 
   const handleNavigate = (id) => {
-    
+
     window.customerID = id;
 
     // console.log('ID : ', id);

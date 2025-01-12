@@ -93,7 +93,7 @@ const CustomerForm = () => {
       return;
     }
 
-    setLoading(true);
+    // setLoading(true);
     try {
       let photo_url = '';
       
