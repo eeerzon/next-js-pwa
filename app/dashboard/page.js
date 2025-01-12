@@ -87,6 +87,7 @@ const Dashboard = () => {
   };
 
   const handleNavigate = (id) => {
+    
     window.customerID = id;
 
     // console.log('ID : ', id);

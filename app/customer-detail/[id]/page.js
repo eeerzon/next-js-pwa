@@ -10,7 +10,6 @@ import Sidebar from '@/app/components/Sidebar';
 const CustomerDetail = ({ paramsid }) => {
   const { isDarkMode, toggle } = useDarkMode();
   const router = useRouter();
-  const [customerId, setCustomerId] = useState(null);
   const [loading, setLoading] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
 
@@ -52,8 +51,6 @@ const CustomerDetail = ({ paramsid }) => {
         window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
       };
       
-    }if (id) {
-      setCustomerId(id); // Set customerId saat id sudah ada
     }
 
     if (id) {

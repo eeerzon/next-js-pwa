@@ -14,7 +14,7 @@ const CustomerForm = () => {
   const { isDarkMode, toggle } = useDarkMode();
   const router = useRouter();
   const countries = getNames();
-  const [loading, setLoading] = useState(false);
+  const [setLoading] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const [formData, setFormData] = useState({
     full_name: '',
