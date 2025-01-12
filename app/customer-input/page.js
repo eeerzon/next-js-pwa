@@ -133,6 +133,10 @@ const CustomerForm = () => {
           console.error('Error getting public URL:', error.message);
         }
 
+        if (photo_url = null){
+          photo_url = 'null';
+        }
+
         
       }
 
