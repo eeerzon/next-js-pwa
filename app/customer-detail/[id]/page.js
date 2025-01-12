@@ -7,7 +7,7 @@ import { format } from 'date-fns';
 import { useDarkMode } from 'usehooks-ts';
 import Sidebar from '@/app/components/Sidebar';
 
-const CustomerDetail = ({ paramsid }) => {
+const CustomerDetail = () => {
   const { isDarkMode, toggle } = useDarkMode();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -56,7 +56,7 @@ const CustomerDetail = ({ paramsid }) => {
     if (id) {
       fetchCustomerDetails();
     }
-  }, [paramsid]);
+  }, []);
 
   // if (!customerId) {
   //   return <p>Loading...</p>;
